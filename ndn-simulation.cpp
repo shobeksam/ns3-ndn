@@ -17,7 +17,7 @@
  * ndnSIM, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-// ndn-simple.cpp
+// ndn-simulation.cpp
 
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
@@ -57,7 +57,7 @@ namespace ns3 {
  *
  * To run scenario and see what is happening, use the following command:
  *
- *     NS_LOG=ndn.Consumer:ndn.Producer:ndn.Consumer ./waf --run=ndn-simple
+ *     NS_LOG=ndn.Consumer:ndn.Producer:ndn.Consumer ./waf --run=ndn-simulation
  */
 
 int main(int argc, char* argv[])
@@ -93,7 +93,6 @@ int main(int argc, char* argv[])
   consumerHelper.SetAttribute("StartSeq", IntegerValue(5));
   consumerHelper.SetPrefix("/data");
    
-  //consumerHelper.SetAttribute("Frequency", StringValue("1")); // 10 interests a second
   consumerHelper.Install(nodes.Get(0));                        // first consumer
   consumerHelper.Install(nodes.Get(0)).Start(Seconds(0));      // first consumer
 
@@ -107,7 +106,7 @@ int main(int argc, char* argv[])
   // Producer will reply to all requests starting with /data
   producerHelper.SetPrefix("/data");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
-  producerHelper.Install(nodes.Get(2)); // last node
+  producerHelper.Install(nodes.Get(2)); // producer
 
   Simulator::Stop(Seconds(4.0));
 
